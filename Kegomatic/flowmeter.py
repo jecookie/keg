@@ -14,6 +14,8 @@ class FlowMeter():
   hertz = 0.0
   flow = 0 # in Liters per second
   thisPour = 0.0 # in Liters
+  lastPour = 0.0
+  lasterPour = 0.0
   totalPour = 0.0 # in Liters
 
   def __init__(self, displayFormat, beverage):
@@ -25,6 +27,8 @@ class FlowMeter():
     self.hertz = 0.0
     self.flow = 0.0
     self.thisPour = 0.0
+    self.lastPour = 0.0
+    self.lasterPour = 0.0
     self.totalPour = 0.0
     self.enabled = True
 
@@ -67,6 +71,22 @@ class FlowMeter():
     else:
       return str(round(self.thisPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
   
+  def getFormattedLastPour(self):
+    if(self.displayFormat == 'metric'):
+      return str(round(self.lastPour,3)) + ' L'
+    elif(self.displayFormat == 'imp'):
+      return str(round(self.lastPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
+    else:
+      return str(round(self.lastPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+
+  def getFormattedLasterPour(self):
+    if(self.displayFormat == 'metric'):
+      return str(round(self.lasterPour,3)) + ' L'
+    elif(self.displayFormat == 'imp'):
+      return str(round(self.lasterPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
+    else:
+      return str(round(self.lasterPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+      
   def getFormattedTotalPour(self):
     if(self.displayFormat == 'metric'):
       return str(round(self.totalPour,3)) + ' L'
@@ -76,5 +96,7 @@ class FlowMeter():
       return str(round(self.totalPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
 
   def clear(self):
+    self.lasterPour = self.lastPour;
+    self.lastPour = self.thisPour;
     self.thisPour = 0;
-    self.totalPour = 0;
+    
