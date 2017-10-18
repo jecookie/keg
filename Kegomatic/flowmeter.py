@@ -2,6 +2,7 @@ import time
 import random
 class FlowMeter():
   PINTS_IN_A_LITER = 2.11338
+  OUNCES_IN_A_LITER = 33.814
   SECONDS_IN_A_MINUTE = 60
   MS_IN_A_SECOND = 1000.0
   displayFormat = 'metric'
@@ -53,18 +54,24 @@ class FlowMeter():
   def getFormattedFlow(self):
     if(self.displayFormat == 'metric'):
       return str(round(self.flow,3)) + ' L/s'
+    elif(self.displayFormat == 'imp'):
+      return str(round(self.flow * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ/s'
     else:
       return str(round(self.flow * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints/s'
   
   def getFormattedThisPour(self):
     if(self.displayFormat == 'metric'):
       return str(round(self.thisPour,3)) + ' L'
+    elif(self.displayFormat == 'imp'):
+      return str(round(self.thisPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
     else:
       return str(round(self.thisPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
   
   def getFormattedTotalPour(self):
     if(self.displayFormat == 'metric'):
       return str(round(self.totalPour,3)) + ' L'
+    elif(self.displayFormat == 'imp'):
+      return str(round(self.totalPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
     else:
       return str(round(self.totalPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
 

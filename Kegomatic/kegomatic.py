@@ -15,39 +15,12 @@ GPIO.setmode(GPIO.BCM) # use real GPIO numbering
 GPIO.setup(23,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(24,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# set up pygame
-pygame.init()
-
-# set up the window
-VIEW_WIDTH = 1024
-VIEW_HEIGHT = 576
-pygame.display.set_caption('KEGBOT')
-lastTweet = 0
 view_mode = 'normal'
 
-# hide the mouse
-pygame.mouse.set_visible(False)
-
 # set up the flow meters
-fm = FlowMeter('metric', ["beer"])
-fm2 = FlowMeter('metric', ["root beer"])
-tweet = ''
+fm = FlowMeter('imp', ["beer"])
+fm2 = FlowMeter('imp', ["seltzer"])
 # set up the colors
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-
-# set up the window surface
-windowSurface = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32) 
-windowInfo = pygame.display.Info()
-FONTSIZE = 48
-LINEHEIGHT = 28
-basicFont = pygame.font.SysFont(None, FONTSIZE)
-
-# set up the backgrounds
-bg = pygame.image.load('beer-bg.png')
-tweet_bg = pygame.image.load('tweet-bg.png')
-
-# set up the adabots
 back_bot = adabot(361, 151, 361, 725)
 middle_bot = adabot(310, 339, 310, 825)
 front_bot = adabot(220, 527, 220, 888)
