@@ -51,7 +51,7 @@ def updatePage(f1, f2):
 	
 	#This calculation is in Liters
 	percent_left = round((1 - (f1.totalPour / LITERS_IN_A_KEG)) * 100,0)	
-	system("sed -i 's/RM1/" + str(percent_left) + "/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
+	system("sed -i 's/RM1/" + str(percent_left) + "%/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
 	
 def updateSave(f1, f2):	
 	with open("keg_save_file.txt","w") as fout:
