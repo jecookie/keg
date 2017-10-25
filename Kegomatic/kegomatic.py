@@ -45,9 +45,9 @@ def doAClick2(channel):
 def updatePage(f1, f2):
 	#Find and replace OZ1 with last pour
 	system("cp /home/pi/kegbot/beer_www/rightBeerOunces.html /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
-	system("sed -i 's/OZ1/This Pour      :" + f1.getFormattedThisPour() + "/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
-	system("sed -i 's/OZ2/Before that    :" + f1.getFormattedLastPour() + "/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
-	system("sed -i 's/OZ3/And Before That:" + f1.getFormattedLasterPour() + "/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
+	system("sed -i 's/OZ1/" + f1.getFormattedThisPour() + "/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
+	system("sed -i 's/OZ2/" + f1.getFormattedLastPour() + "/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
+	system("sed -i 's/OZ3/" + f1.getFormattedLasterPour() + "/' /home/pi/kegbot/beer_www/rightBeerOuncesNow.html")
 	
 	#This calculation is in Liters
 	percent_left = round((1 - (f1.totalPour / LITERS_IN_A_KEG)) * 100,0)	
@@ -63,11 +63,22 @@ def updateSave(f1, f2):
 		
                 print time.ctime() + ": This pour "+f1.getFormattedThisPour() +"\n"
 	
-    
+def loadFromSave(f1, f2):
+        with open("keg_save_file.txt","r") as fin:
+                f1.thisPour = float(fin.readline().strip())
+                f1.lastPour = float(fin.readline().strip())
+                f1.lasterPour = float(fin.readline().strip())
+                f1.totalPour = float(fin.readline().strip())
+                fin.close()
+        print "Loaded defaults from file\n";
+	   
+
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick, bouncetime=20) # Beer, on Pin 23
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Seltzer, on Pin 24
 
-#TODO: Load saves from a file
+#Load saves from a file
+loadFromSave(fm, fm2)
+
 
 #Test the functions now
 # Update the webpage
@@ -75,8 +86,8 @@ updatePage(fm, fm2)
 #Update the savefile
 updateSave(fm,fm2)
 fm.clear()
-GPIO.cleanup()
-sys.exit(0)
+#GPIO.cleanup()
+#sys.exit(0)
 
 
 
