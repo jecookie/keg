@@ -64,6 +64,7 @@ def updateSave(f1, f2):
                 print time.ctime() + ": This pour "+f1.getFormattedThisPour() +"\n"
 	
 def loadFromSave(f1, f2):
+    if(os.path.isfile("keg_save_file.txt")):
         with open("keg_save_file.txt","r") as fin:
                 f1.thisPour = float(fin.readline().strip())
                 f1.lastPour = float(fin.readline().strip())
