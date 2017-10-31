@@ -1,6 +1,7 @@
 import time
 import random
 class FlowMeter():
+  ERROR_CORRECTION = 1.351
   PINTS_IN_A_LITER = 2.11338
   OUNCES_IN_A_LITER = 33.814
   SECONDS_IN_A_MINUTE = 60
@@ -41,6 +42,7 @@ class FlowMeter():
       self.hertz = FlowMeter.MS_IN_A_SECOND / self.clickDelta
       self.flow = self.hertz / (FlowMeter.SECONDS_IN_A_MINUTE * 7.5)  # In Liters per second
       instPour = self.flow * (self.clickDelta / FlowMeter.MS_IN_A_SECOND)  
+      instPour *= FlowMeter.ERROR_CORRECTION
       self.thisPour += instPour
       self.totalPour += instPour
     # Update the last click
@@ -53,47 +55,47 @@ class FlowMeter():
      return str(self.clickDelta) + ' ms'
   
   def getFormattedHertz(self):
-     return str(round(self.hertz,3)) + ' Hz'
+     return str(round(self.hertz,1)) + ' Hz'
   
   def getFormattedFlow(self):
     if(self.displayFormat == 'metric'):
-      return str(round(self.flow,3)) + ' L/s'
+      return str(round(self.flow,1)) + ' L/s'
     elif(self.displayFormat == 'imp'):
-      return str(round(self.flow * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ/s'
+      return str(round(self.flow * FlowMeter.OUNCES_IN_A_LITER,1)) + ' OZ/s'
     else:
-      return str(round(self.flow * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints/s'
+      return str(round(self.flow * FlowMeter.PINTS_IN_A_LITER,1)) + ' pints/s'
   
   def getFormattedThisPour(self):
     if(self.displayFormat == 'metric'):
-      return str(round(self.thisPour,3)) + ' L'
+      return str(round(self.thisPour,1)) + ' L'
     elif(self.displayFormat == 'imp'):
-      return str(round(self.thisPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
+      return str(round(self.thisPour * FlowMeter.OUNCES_IN_A_LITER,1)) + ' OZ'
     else:
-      return str(round(self.thisPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+      return str(round(self.thisPour * FlowMeter.PINTS_IN_A_LITER,1)) + ' pints'
   
   def getFormattedLastPour(self):
     if(self.displayFormat == 'metric'):
-      return str(round(self.lastPour,3)) + ' L'
+      return str(round(self.lastPour,1)) + ' L'
     elif(self.displayFormat == 'imp'):
-      return str(round(self.lastPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
+      return str(round(self.lastPour * FlowMeter.OUNCES_IN_A_LITER,1)) + ' OZ'
     else:
-      return str(round(self.lastPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+      return str(round(self.lastPour * FlowMeter.PINTS_IN_A_LITER,1)) + ' pints'
 
   def getFormattedLasterPour(self):
     if(self.displayFormat == 'metric'):
-      return str(round(self.lasterPour,3)) + ' L'
+      return str(round(self.lasterPour,1)) + ' L'
     elif(self.displayFormat == 'imp'):
-      return str(round(self.lasterPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
+      return str(round(self.lasterPour * FlowMeter.OUNCES_IN_A_LITER,1)) + ' OZ'
     else:
-      return str(round(self.lasterPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+      return str(round(self.lasterPour * FlowMeter.PINTS_IN_A_LITER,1)) + ' pints'
       
   def getFormattedTotalPour(self):
     if(self.displayFormat == 'metric'):
-      return str(round(self.totalPour,3)) + ' L'
+      return str(round(self.totalPour,1)) + ' L'
     elif(self.displayFormat == 'imp'):
-      return str(round(self.totalPour * FlowMeter.OUNCES_IN_A_LITER,3)) + ' OZ'
+      return str(round(self.totalPour * FlowMeter.OUNCES_IN_A_LITER,1)) + ' OZ'
     else:
-      return str(round(self.totalPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+      return str(round(self.totalPour * FlowMeter.PINTS_IN_A_LITER,1)) + ' pints'
 
   def clear(self):
     self.lasterPour = self.lastPour;
