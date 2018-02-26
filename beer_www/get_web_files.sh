@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-declare -a files=( leftBeer.jpg leftBeer.html rightBeer.html rightBeer.jpg index.html rightBeerOunces.html AccidentProneBrewing.jpg )
+declare -a files=( leftBeer.jpg leftBeer.html rightBeer.html rightBeer.jpg index.html rightBeerOunces.html AccidentProneBrewing.jpg rightBeerOuncesNow.html )
 
 exe=~/kegbot/Dropbox-Uploader/dropbox_uploader.sh
 

@@ -15,6 +15,13 @@ import SocketServer
 import urlparse
 import eiscp
 
+def RepresentsInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
+
 
 class S(BaseHTTPRequestHandler):
     def _set_headers(self):
@@ -35,37 +42,90 @@ class S(BaseHTTPRequestHandler):
         fields = urlparse.parse_qsl(field_data)
 
         print fields
-        print type(fields)
+        print fields[0]
         print fields[0][0]
+        task = fields[0][0].lower().lstrip()
+        key=fields[0][1].lower().lstrip().split(' ',1)[0]
+        #print type(fields)
+        #print fields[0][0]
 
+#todo
+#get the IP address 
+#control the volume
+#set default volume based on source
+#control the TV
         
-        if 'power' in fields[0]:
-            key=fields[0][1]
+        if 'control' in task:
+            #On/Off
 
             # Create a receiver object, connecting to the host
-            receiver = eiscp.eISCP('192.168.2.109')
+            receiver = eiscp.eISCP('192.168.2.100')
+            if 'on' in key or 'off' in key:
+                # Turn the receiver on, select PC input
+                receiver.command('power '+key)
+            elif 'up' in key or 'down' in key:
+                #forward volume up/down commands
+                task='volume'
+                print "volume cmd"
 
-            # Turn the receiver on, select PC input
-            receiver.command('power '+key)
             receiver.disconnect()
 
-            print "receive on. source " + src + ". volume 40"
+            print "receiver " + key
         
 
-        if 'source' in fields[0]:
-            src=fields[0][1]
-            print "Setting source to " + src
+        if 'source' in task:
+            if 'music' in key:
+                key='pc'
+            elif 'tv' in key:
+                key='tv/cd'
+            elif 'playstation' in key:
+                key='game'
+            elif 'ps3' in key:
+                key='game'
+
+
+
+            print "Setting source to " + key
 
             # Create a receiver object, connecting to the host
-            receiver = eiscp.eISCP('192.168.2.109')
+            receiver = eiscp.eISCP('192.168.2.100')
 
             # Turn the receiver on, select PC input
             receiver.command('power on')
             receiver.command('source '+src)
-            receiver.command('volume 40')
+            receiver.command('volume 35')
             receiver.disconnect()
 
-            print "receive on. source " + src + ". volume 40"
+            print "receive on. source " + src + ". volume 35"
+
+        if 'volume' in task:
+            print "key='"+key+"'"
+            receiver = eiscp.eISCP('192.168.2.100')
+            if 'up' in key or 'down' in key:
+                print "volume " + key + " x5"
+                print 'volume level-'+key
+                receiver.command('volume level-'+key)
+                receiver.command('volume level-'+key)
+                receiver.command('volume level-'+key)
+                receiver.command('volume level-'+key)
+                receiver.command('volume level-'+key)
+            elif 'mute' in key:
+                receive.command('mute')
+                print "muted"
+            
+            elif RepresentsInt(key):
+                if key > 50:
+                    key = 50
+                receiver.command('volume '+key)
+                print "volume set to " + key
+            else:
+                print "volume key not recognized '"+key+"'"
+                    
+
+
+                
+            receiver.disconnect()
+            
         
 
 

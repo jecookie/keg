@@ -46,7 +46,7 @@ class S(BaseHTTPRequestHandler):
 ##control on/off (powerOn/PowerOff)
 #Set the TV to ___ (InputTuner, InputHDMI1
 ##  input __
-###launch/12 - Netflix
+###launch/12 - Netflix (and turn on the receiver????)
 #See http://192.168.2.102:8060/query/apps  full list of apps
         toSend=""
         if 'control' in fields[0]:
