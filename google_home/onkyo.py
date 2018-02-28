@@ -92,11 +92,11 @@ class S(BaseHTTPRequestHandler):
 
             # Turn the receiver on, select PC input
             receiver.command('power on')
-            receiver.command('source '+src)
+            receiver.command('source '+key)
             receiver.command('volume 35')
             receiver.disconnect()
 
-            print "receive on. source " + src + ". volume 35"
+            print "receive on. source " + key + ". volume 35"
 
         if 'volume' in task:
             print "key='"+key+"'"
