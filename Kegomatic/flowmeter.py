@@ -1,7 +1,7 @@
 import time
 import random
 class FlowMeter():
-  ERROR_CORRECTION = 1.351
+  ERROR_CORRECTION = 1.351 *2
   PINTS_IN_A_LITER = 2.11338
   OUNCES_IN_A_LITER = 33.814
   SECONDS_IN_A_MINUTE = 60
