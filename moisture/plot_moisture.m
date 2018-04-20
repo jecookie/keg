@@ -1,7 +1,7 @@
 load minute_save.txt
 
 wndw =  100
-figure(1)
+figure('visible','off')
 minute=1000-minute_save;
 plot(minute(1:end),'r')
 hold on
